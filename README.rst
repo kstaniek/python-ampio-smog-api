@@ -1,6 +1,9 @@
 Ampio Smog Sensors API Client
 =============================
 
+.. image:: https://travis-ci.org/kstaniek/python-ampio-smog-api.svg?branch=master
+    :target: https://travis-ci.org/kstaniek/python-ampio-smog-api
+
 Python Client for interacting with `Ampio Smog Sensors <smog1.ampio.pl:3050>`_
 
 This module is not officially developed nor surrported by Ampio.
@@ -33,6 +36,6 @@ For development is recommended to use a ``venv``.
 License
 -------
 
-``asmog`` is licensed under MIT, for more details check LICENSE.
+``asmog`` is licensed under Apache 2.0, for more details check LICENSE.
 
 
