@@ -4,6 +4,11 @@ Ampio Smog Sensors API Client
 .. image:: https://travis-ci.org/kstaniek/python-ampio-smog-api.svg?branch=master
     :target: https://travis-ci.org/kstaniek/python-ampio-smog-api
 
+.. image:: https://coveralls.io/repos/github/kstaniek/python-ampio-smog-api/badge.svg?branch=master
+    :target: https://coveralls.io/github/kstaniek/python-ampio-smog-api?branch=master
+
+
+
 Python Client for interacting with `Ampio Smog Sensors <smog1.ampio.pl:3050>`_
 
 This module is not officially developed nor surrported by Ampio.
