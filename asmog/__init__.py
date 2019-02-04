@@ -29,7 +29,6 @@ class AmpioSmog:
             _LOGGER.info(
                 "Response from AmpioSmog API: %s", response.status)
             self.data = await response.json()
-            print(self.data)
             _LOGGER.debug(self.data)
 
         except (asyncio.TimeoutError,
