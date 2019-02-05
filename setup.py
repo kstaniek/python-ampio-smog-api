@@ -5,15 +5,15 @@ from setuptools import find_packages, setup
 MIN_PY_VERSION = "3.5.0"
 
 REQUIRES = [
-    'aiohttp==3.5.4',
-    'async-timeout==3.0.1'
+    'aiohttp',
+    'async-timeout'
 ]
 
 PACKAGES = find_packages(exclude=['tests', 'tests.*'])
 
 setup(
     name='asmog',
-    version='0.0.3',
+    version='0.0.4',
     url='https://github.com/kstaniek/python-ampio-smog-api',
     download_url='https://github.com/kstaniek/python-ampio-smog-api/releases',
     author='Klaudiusz Staniek',
