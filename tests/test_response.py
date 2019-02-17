@@ -41,7 +41,7 @@ class FakeAmpio:
         self.loop = loop
         self.app = web.Application()
         self.app.router.add_routes(
-            [web.get('/lastHour/{sensor_id}', self.last_hour)])
+            [web.get('/api/devices/{sensor_id}', self.last_hour)])
         self.runner = None
 
     async def start(self):
@@ -60,71 +60,21 @@ class FakeAmpio:
         sensor_id = request.match_info.get('sensor_id')
         if sensor_id == '16':
             return web.json_response(
-                [
-                    {
-                        "CZAS": "2019-02-04 20:38:52",
-                        "PM25": 50,
-                        "PM10": 61,
-                        "ID": 7529776,
-                        "humidity": 75.050003,
-                        "temperature": 13.48,
-                        "pressure": 1028.680054
-                    },
-                    {
-                        "CZAS": "2019-02-04 20:48:45",
-                        "PM25": 48,
-                        "PM10": 62,
-                        "ID": 7529777,
-                        "humidity": 75.820999,
-                        "temperature": 12.18,
-                        "pressure": 1029.319946
-                    },
-                    {
-                        "CZAS": "2019-02-04 20:58:37",
-                        "PM25": 49,
-                        "PM10": 59,
-                        "ID": 7529778,
-                        "humidity": 78.346001,
-                        "temperature": 12.49,
-                        "pressure": 1029.02002
-                    },
-                    {
-                        "CZAS": "2019-02-04 21:08:28",
-                        "PM25": 49,
-                        "PM10": 59,
-                        "ID": 7529779,
-                        "humidity": 82.68,
-                        "temperature": 10.48,
-                        "pressure": 1029.560059
-                    },
-                    {
-                        "CZAS": "2019-02-04 21:09:21",
-                        "PM25": 43,
-                        "PM10": 53,
-                        "ID": 7529780,
-                        "humidity": 74.112,
-                        "temperature": 12.8,
-                        "pressure": 1028.880005
-                    },
-                    {
-                        "CZAS": "2019-02-04 21:19:12",
-                        "PM25": 57,
-                        "PM10": 76,
-                        "ID": 7529781,
-                        "humidity": 74.883003,
-                        "temperature": 13.06,
-                        "pressure": 1029.380005
-                    },
-                    {
-                        "CZAS": "2019-02-04 21:29:04",
-                        "PM25": 62,
-                        "PM10": 79,
-                        "ID": 7529782,
-                        "humidity": 77.080002,
-                        "temperature": 12.13,
-                        "pressure": 1029.810059
-                    }
-                ]
+                {
+                    'devName': 'Test sensor',
+                    'deviceID': 16,
+                    'pm25_0': 27,
+                    'pm10_0': 29,
+                    'lastPM25': 28,
+                    'lastPM10': 30,
+                    'lastSeen':
+                    '2019-02-17 17:00:18',
+                    'lat': 50.35718,
+                    'lon': 19.06775,
+                    'rssi': -79,
+                    'humidity': 47.249001,
+                    'pressure': 1021.710022
+                }
             )
 
         elif sensor_id == '10':
@@ -156,12 +106,14 @@ async def test_response(loop):
         # Print details about the given station
         await station.get_data()
 
-        assert station.pm10 == 79
-        assert station.pm2_5 == 62
-        assert station.temperature == 12.13
-        assert station.pressure == 1029.810059
-
-        # assert False
+        assert station.name == 'Test sensor'
+        assert station.pm10 == 30
+        assert station.pm2_5 == 28
+        assert station.pressure == 1021.710022
+        assert station.humidity == 47.249001
+        assert station.latitude == 50.35718
+        assert station.longitude == 19.06775
+        assert station.last_seen == '2019-02-17 17:00:18'
 
     await fake_ampio.stop()
 
@@ -182,7 +134,6 @@ async def test_empty_response(loop):
 
         assert station.pm10 is None
         assert station.pm2_5 is None
-        assert station.temperature is None
         assert station.pressure is None
 
     await fake_ampio.stop()
@@ -204,7 +155,6 @@ async def test_conection_error(loop):
 
         assert station.pm10 is None
         assert station.pm2_5 is None
-        assert station.temperature is None
         assert station.pressure is None
 
     await fake_ampio.stop()
@@ -226,7 +176,6 @@ async def test_wrong_response(loop):
 
         assert station.pm10 is None
         assert station.pm2_5 is None
-        assert station.temperature is None
         assert station.pressure is None
 
     await fake_ampio.stop()

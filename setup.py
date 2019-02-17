@@ -13,7 +13,7 @@ PACKAGES = find_packages(exclude=['tests', 'tests.*'])
 
 setup(
     name='asmog',
-    version='0.0.5',
+    version='0.0.6',
     url='https://github.com/kstaniek/python-ampio-smog-api',
     download_url='https://github.com/kstaniek/python-ampio-smog-api/releases',
     author='Klaudiusz Staniek',

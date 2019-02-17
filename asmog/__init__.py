@@ -7,7 +7,7 @@ import aiohttp
 import async_timeout
 
 _LOGGER = logging.getLogger(__name__)
-_INSTANCE = 'http://smog1.ampio.pl:3050/lastHour/{id}'
+_INSTANCE = 'http://smog1.ampio.pl:3050/api/devices/{id}'
 
 
 class AmpioSmog:
@@ -40,19 +40,19 @@ class AmpioSmog:
             _LOGGER.error("Can not load data from AmpioSmog API: %s", err)
 
     @property
+    def name(self):
+        """Return device name."""
+        return self.get_value('devName')
+
+    @property
     def pm10(self):
         """Return the particulate matter 10 value."""
-        return self.get_value('PM10')
+        return self.get_value('lastPM10')
 
     @property
     def pm2_5(self):
         """Return the particulate matter 2.5 value."""
-        return self.get_value('PM25')
-
-    @property
-    def temperature(self):
-        """Return the temperature of a station."""
-        return self.get_value('temperature')
+        return self.get_value('lastPM25')
 
     @property
     def humidity(self):
@@ -64,11 +64,26 @@ class AmpioSmog:
         """Return the air pressure at a station."""
         return self.get_value('pressure')
 
+    @property
+    def latitude(self):
+        """Return sensor latitude."""
+        return self.get_value('lat')
+
+    @property
+    def longitude(self):
+        """Return sensor longitude."""
+        return self.get_value('lon')
+
+    @property
+    def last_seen(self):
+        """Return last seen timestamp."""
+        return self.get_value('lastSeen')
+
     def get_value(self, key):
         """Extract a value for a given key."""
         try:
             if self.data:
-                return self.data[-1].get(key, None)
+                return self.data.get(key, None)
             return None
         except IndexError:
             return None
