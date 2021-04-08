@@ -19,6 +19,7 @@ setup(
     author='Klaudiusz Staniek',
     author_email='kstaniek@gmail.com',
     install_requires=REQUIRES,
+    license='Apache-2.0',
     python_requires='>={}'.format(MIN_PY_VERSION),
     test_suite='tests',
     packages=PACKAGES,
