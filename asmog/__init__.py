@@ -23,7 +23,7 @@ class AmpioSmog:
     async def get_data(self):
         """Get details of AmpioSmog station."""
         try:
-            async with async_timeout.timeout(5, loop=self._loop):
+            async with async_timeout.timeout(5):
                 response = await self._session.get(self.base_url)
 
             _LOGGER.info(
